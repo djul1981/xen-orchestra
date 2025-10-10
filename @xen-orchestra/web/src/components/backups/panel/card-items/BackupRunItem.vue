@@ -1,8 +1,5 @@
 <template>
-  <VtsCardRowKeyValue>
-    <template #key>
-      {{ t('run') }}
-    </template>
+  <UiLabelValue :label="t('run')">
     <template #value>
       <UiLink
         v-if="backupRun.id"
@@ -13,39 +10,27 @@
         {{ backupRun.id }}
       </UiLink>
     </template>
-    <template #addons>
+    <template #actions>
       <VtsCopyButton :value="backupRun.id" />
     </template>
-  </VtsCardRowKeyValue>
-  <VtsCardRowKeyValue>
-    <template #key>
-      {{ t('date') }}
-    </template>
-    <template #value>
-      {{ formattedRunDate }}
-    </template>
-    <template #addons>
+  </UiLabelValue>
+  <UiLabelValue :label="t('date')" :value="formattedRunDate">
+    <template #actions>
       <VtsCopyButton :value="formattedRunDate" />
     </template>
-  </VtsCardRowKeyValue>
-  <VtsCardRowKeyValue>
-    <template #key>
-      {{ t('status') }}
-    </template>
+  </UiLabelValue>
+  <UiLabelValue :label="t('status')">
     <template #value>
       <VtsStatus :status="backupRun.status" />
     </template>
-  </VtsCardRowKeyValue>
-  <VtsCardRowKeyValue>
-    <template #key>
-      {{ t('schedule') }}
-    </template>
+  </UiLabelValue>
+  <UiLabelValue :label="t('schedule')">
     <template #value>
       <UiLink size="small" icon="object:backup-schedule" :href="`/#/backup/${backupRun.jobId}/edit`">
         {{ scheduleName || backupRun.jobId }}
       </UiLink>
     </template>
-  </VtsCardRowKeyValue>
+  </UiLabelValue>
   <UiLogEntryViewer
     v-if="logContent"
     :content="logContent"
@@ -58,9 +43,9 @@
 <script lang="ts" setup>
 import { useXoScheduleCollection } from '@/remote-resources/use-xo-schedule-collection.ts'
 import type { XoBackupLog } from '@/types/xo/backup-log.type.ts'
-import VtsCardRowKeyValue from '@core/components/card/VtsCardRowKeyValue.vue'
 import VtsCopyButton from '@core/components/copy-button/VtsCopyButton.vue'
 import VtsStatus from '@core/components/status/VtsStatus.vue'
+import UiLabelValue from '@core/components/ui/label-value/UiLabelValue.vue'
 import UiLink from '@core/components/ui/link/UiLink.vue'
 import UiLogEntryViewer from '@core/components/ui/log-entry-viewer/UiLogEntryViewer.vue'
 import { computed } from 'vue'
