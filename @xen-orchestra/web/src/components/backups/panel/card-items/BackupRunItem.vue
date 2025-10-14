@@ -1,5 +1,5 @@
 <template>
-  <UiLabelValue :label="t('run')">
+  <UiLabelValue :label="t('run')" :copy-value="backupRun.id">
     <template #value>
       <UiLink
         v-if="backupRun.id"
@@ -10,15 +10,8 @@
         {{ backupRun.id }}
       </UiLink>
     </template>
-    <template #actions>
-      <VtsCopyButton :value="backupRun.id" />
-    </template>
   </UiLabelValue>
-  <UiLabelValue :label="t('date')" :value="formattedRunDate">
-    <template #actions>
-      <VtsCopyButton :value="formattedRunDate" />
-    </template>
-  </UiLabelValue>
+  <UiLabelValue :label="t('date')" :value="formattedRunDate" :copy-value="formattedRunDate" />
   <UiLabelValue :label="t('status')">
     <template #value>
       <VtsStatus :status="backupRun.status" />
@@ -43,7 +36,6 @@
 <script lang="ts" setup>
 import { useXoScheduleCollection } from '@/remote-resources/use-xo-schedule-collection.ts'
 import type { XoBackupLog } from '@/types/xo/backup-log.type.ts'
-import VtsCopyButton from '@core/components/copy-button/VtsCopyButton.vue'
 import VtsStatus from '@core/components/status/VtsStatus.vue'
 import UiLabelValue from '@core/components/ui/label-value/UiLabelValue.vue'
 import UiLink from '@core/components/ui/link/UiLink.vue'
