@@ -5,7 +5,7 @@
     </UiTitle>
     <VtsStateHero v-if="!areHostsReady" format="card" busy size="medium" />
     <template v-else>
-      <VtsQuickInfoRow :label="t('master')">
+      <UiLabelValue :label="t('master')">
         <template #value>
           <UiLink v-if="primaryHost" icon="fa:server" :to="`/host/${pool.master}/`" size="medium">
             {{ primaryHost.name_label }}
@@ -14,22 +14,22 @@
             {{ t('none') }}
           </template>
         </template>
-      </VtsQuickInfoRow>
-      <VtsQuickInfoRow :label="t('auto-power')">
+      </UiLabelValue>
+      <UiLabelValue :label="t('auto-power')">
         <template #value>
           <VtsStatus :status="pool.auto_poweron" />
         </template>
-      </VtsQuickInfoRow>
-      <VtsQuickInfoRow :label="t('high-availability')">
+      </UiLabelValue>
+      <UiLabelValue :label="t('high-availability')">
         <template #value>
           <VtsStatus :status="pool.HA_enabled" />
         </template>
-      </VtsQuickInfoRow>
-      <VtsQuickInfoRow :label="t('migration-compression')">
+      </UiLabelValue>
+      <UiLabelValue :label="t('migration-compression')">
         <template #value>
           <VtsStatus :status="pool.migrationCompression ?? false" />
         </template>
-      </VtsQuickInfoRow>
+      </UiLabelValue>
     </template>
   </UiCard>
 </template>
@@ -37,10 +37,10 @@
 <script setup lang="ts">
 import { useXoHostCollection } from '@/remote-resources/use-xo-host-collection.ts'
 import type { XoPool } from '@/types/xo/pool.type'
-import VtsQuickInfoRow from '@core/components/quick-info-row/VtsQuickInfoRow.vue'
 import VtsStateHero from '@core/components/state-hero/VtsStateHero.vue'
 import VtsStatus from '@core/components/status/VtsStatus.vue'
 import UiCard from '@core/components/ui/card/UiCard.vue'
+import UiLabelValue from '@core/components/ui/label-value/UiLabelValue.vue'
 import UiLink from '@core/components/ui/link/UiLink.vue'
 import UiTitle from '@core/components/ui/title/UiTitle.vue'
 import { useI18n } from 'vue-i18n'
