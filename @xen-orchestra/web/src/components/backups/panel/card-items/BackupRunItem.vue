@@ -1,5 +1,5 @@
 <template>
-  <UiLabelValue :label="t('run')" :copy-value="backupRun.id">
+  <UiLabelValue :label="t('run')" :copy-value="backupRun.id" ellipsis>
     <template #value>
       <UiLink
         v-if="backupRun.id"
@@ -11,13 +11,13 @@
       </UiLink>
     </template>
   </UiLabelValue>
-  <UiLabelValue :label="t('date')" :value="formattedRunDate" :copy-value="formattedRunDate" />
-  <UiLabelValue :label="t('status')">
+  <UiLabelValue :label="t('date')" :value="formattedRunDate" :copy-value="formattedRunDate" ellipsis />
+  <UiLabelValue :label="t('status')" ellipsis>
     <template #value>
       <VtsStatus :status="backupRun.status" />
     </template>
   </UiLabelValue>
-  <UiLabelValue :label="t('schedule')">
+  <UiLabelValue :label="t('schedule')" ellipsis>
     <template #value>
       <UiLink size="small" icon="object:backup-schedule" :href="`/#/backup/${backupRun.jobId}/edit`">
         {{ scheduleName || backupRun.jobId }}
