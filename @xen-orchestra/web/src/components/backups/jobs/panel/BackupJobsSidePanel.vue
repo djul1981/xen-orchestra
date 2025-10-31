@@ -27,13 +27,13 @@
 
 <script setup lang="ts">
 import BackupJobInfosCard from '@/components/backups/jobs/panel/cards/BackupJobInfosCard.vue'
-import BackupJobLogsCard from '@/components/backups/jobs/panel/cards/BackupJobLogsCard.vue'
 import BackupJobsBackedUpPoolsCard from '@/components/backups/jobs/panel/cards/BackupJobsBackedUpPoolsCard.vue'
 import BackupJobsBackedUpVmsCard from '@/components/backups/jobs/panel/cards/BackupJobsBackedUpVmsCard.vue'
 import BackupJobSchedulesCard from '@/components/backups/jobs/panel/cards/BackupJobSchedulesCard.vue'
 import BackupJobSettingsCard from '@/components/backups/jobs/panel/cards/BackupJobSettingsCard.vue'
 import BackupJobsTargetsCard from '@/components/backups/jobs/panel/cards/BackupJobsTargetsCard.vue'
 import BackupSourceRepositoryCard from '@/components/backups/jobs/panel/cards/BackupSourceRepositoryCard.vue'
+import BackupJobLogsCard from '@/components/hosts/panel/card/BackupJobLogsCard.vue'
 import type { XoBackupJob } from '@/remote-resources/use-xo-backup-job-collection.ts'
 import { useXoBackupLogCollection } from '@/remote-resources/use-xo-backup-log-collection.ts'
 import { useXoBackupRepositoryCollection } from '@/remote-resources/use-xo-br-collection.ts'
