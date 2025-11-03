@@ -2,12 +2,12 @@
   <UiCard>
     <UiCardTitle>
       {{ t('network') }}
-      <UiLink size="medium" :to="`/vm/${vm.id}/networks`">
+      <UiLink v-if="ipAddresses.length > 0" size="medium" :to="`/vm/${vm.id}/networks`">
         {{ t('see-all') }}
       </UiLink>
     </UiCardTitle>
     <div class="content">
-      <template v-if="ipAddresses.length">
+      <template v-if="ipAddresses.length > 0">
         <VtsCardRowKeyValue v-for="(ip, index) in ipAddresses" :key="ip">
           {{ ip }}
           <template #key>
@@ -29,6 +29,9 @@
           </template>
         </VtsCardRowKeyValue>
       </template>
+      <VtsCardRowKeyValue v-else>
+        <template #key>{{ t('ip-addresses') }}</template>
+      </VtsCardRowKeyValue>
     </div>
   </UiCard>
 </template>

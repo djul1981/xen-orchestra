@@ -214,6 +214,7 @@ const headerIcon: Record<VmHeader, IconName> = {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 0.8rem;
 
     .more-info {
       color: var(--color-neutral-txt-secondary);
