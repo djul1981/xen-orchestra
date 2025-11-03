@@ -8,11 +8,10 @@
         <VtsStatus :status="vm.vga === 'std'" />
       </template>
     </UiLabelValue>
-    <UiLabelValue :label="t('video-ram')">
-      <template v-if="videoRamValue?.value" #value>
-        {{ `${videoRamValue.value} ${videoRamValue.prefix || t('bytes.mi')}` }}
-      </template>
-    </UiLabelValue>
+    <UiLabelValue
+      :label="t('video-ram')"
+      :value="videoRamValue?.value ? `${videoRamValue.value} ${videoRamValue.prefix || t('bytes.mi')}` : undefined"
+    />
   </UiCard>
 </template>
 

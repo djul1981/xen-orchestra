@@ -48,7 +48,7 @@
           <UiLabelValue
             :label="t('description')"
             :value="network.name_description"
-            :copy-value="network.uuid"
+            :copy-value="network.name_description"
             ellipsis
           />
           <!-- VLAN -->

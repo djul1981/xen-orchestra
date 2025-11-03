@@ -79,28 +79,29 @@
         <UiCardTitle>{{ t('network-information') }}</UiCardTitle>
         <div class="content">
           <!-- IP ADDRESSES -->
-          <template v-if="ipAddresses.length">
-            <VtsCardRowKeyValue v-for="(ip, index) in ipAddresses" :key="ip">
-              <template #key>
-                <div v-if="index === 0">{{ t('ip-addresses') }}</div>
+          <div v-if="ipAddresses.length">
+            <UiLabelValue :label="t('ip-addresses')">
+              <template v-if="ipAddresses.length > 0" #value>
+                <div class="IPs">
+                  <div v-for="(ip, index) in ipAddresses" :key="ip" class="ip">
+                    <span v-tooltip class="text-ellipsis">
+                      {{ ip }}
+                    </span>
+                    <VtsCopyButton :value="ip" />
+                    <UiButtonIcon
+                      v-if="index === 0 && ipAddresses.length > 1"
+                      v-tooltip="t('coming-soon')"
+                      disabled
+                      icon="fa:ellipsis"
+                      size="medium"
+                      accent="brand"
+                    />
+                  </div>
+                </div>
               </template>
-              <template #value>
-                <span class="text-ellipsis">{{ ip }}</span>
-              </template>
-              <template #addons>
-                <VtsCopyButton :value="ip" />
-                <UiButtonIcon
-                  v-if="index === 0 && ipAddresses.length > 1"
-                  v-tooltip="t('coming-soon')"
-                  disabled
-                  icon="fa:ellipsis"
-                  size="medium"
-                  accent="brand"
-                />
-              </template>
-            </VtsCardRowKeyValue>
-          </template>
-          <UiLabelValue v-else :label="t('ip-addresses')" :value="ipAddresses" ellipsis />
+            </UiLabelValue>
+          </div>
+          <UiLabelValue v-else :label="t('ip-addresses')" ellipsis />
           <!-- MAC ADDRESSES -->
           <UiLabelValue :label="t('mac-address')" :value="vif.MAC" :copy-value="vif.MAC" ellipsis />
         </div>
@@ -113,7 +114,6 @@
 import { useXoNetworkCollection } from '@/remote-resources/use-xo-network-collection.ts'
 import { useXoVmCollection } from '@/remote-resources/use-xo-vm-collection.ts'
 import type { XoVif } from '@/types/xo/vif.type'
-import VtsCardRowKeyValue from '@core/components/card/VtsCardRowKeyValue.vue'
 import VtsCopyButton from '@core/components/copy-button/VtsCopyButton.vue'
 import VtsStatus from '@core/components/status/VtsStatus.vue'
 import UiButton from '@core/components/ui/button/UiButton.vue'
@@ -158,10 +158,17 @@ const status = computed(() => (vif.attached ? 'connected' : 'disconnected'))
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
-  }
 
-  .value:empty::before {
-    content: '-';
+    .IPs {
+      width: 100%;
+
+      .ip {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        width: 100%;
+      }
+    }
   }
 }
 

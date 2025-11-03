@@ -79,27 +79,28 @@
         <div class="content">
           <!-- IP ADDRESSES -->
           <div v-if="ipAddresses.length">
-            <VtsCardRowKeyValue v-for="(ip, index) in ipAddresses" :key="ip">
-              <template #key>
-                <div v-if="index === 0">{{ t('ip-addresses') }}</div>
+            <UiLabelValue :label="t('ip-addresses')">
+              <template v-if="ipAddresses.length > 0" #value>
+                <div class="IPs">
+                  <div v-for="(ip, index) in ipAddresses" :key="ip" class="ip">
+                    <span v-tooltip class="text-ellipsis">
+                      {{ ip }}
+                    </span>
+                    <VtsCopyButton :value="ip" />
+                    <UiButtonIcon
+                      v-if="index === 0 && ipAddresses.length > 1"
+                      v-tooltip="t('coming-soon')"
+                      disabled
+                      icon="fa:ellipsis"
+                      size="medium"
+                      accent="brand"
+                    />
+                  </div>
+                </div>
               </template>
-              <template #value>
-                <span v-tooltip class="text-ellipsis">{{ ip }}</span>
-              </template>
-              <template #addons>
-                <VtsCopyButton :value="ip" />
-                <UiButtonIcon
-                  v-if="index === 0 && ipAddresses.length > 1"
-                  v-tooltip="t('coming-soon')"
-                  disabled
-                  icon="fa:ellipsis"
-                  size="medium"
-                  accent="brand"
-                />
-              </template>
-            </VtsCardRowKeyValue>
+            </UiLabelValue>
           </div>
-          <UiLabelValue v-else :label="t('ip-addresses')" :value="ipAddresses" ellipsis />
+          <UiLabelValue v-else :label="t('ip-addresses')" ellipsis />
           <!-- MAC ADDRESSES -->
           <UiLabelValue :label="t('mac-address')" :value="vif.MAC" :copy-value="vif.MAC" ellipsis />
         </div>
@@ -113,7 +114,6 @@ import type { XenApiVif } from '@/libs/xen-api/xen-api.types'
 import { useNetworkStore } from '@/stores/xen-api/network.store'
 import { useVmGuestMetricsStore } from '@/stores/xen-api/vm-guest-metrics.store'
 import { useVmStore } from '@/stores/xen-api/vm.store'
-import VtsCardRowKeyValue from '@core/components/card/VtsCardRowKeyValue.vue'
 import VtsCopyButton from '@core/components/copy-button/VtsCopyButton.vue'
 import VtsStatus from '@core/components/status/VtsStatus.vue'
 import UiButton from '@core/components/ui/button/UiButton.vue'
@@ -167,15 +167,17 @@ const status = computed(() => (vif.currently_attached ? 'connected' : 'disconnec
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
-  }
 
-  .network {
-    display: flex;
-    gap: 0.8rem;
-  }
+    .IPs {
+      width: 100%;
 
-  .value:empty::before {
-    content: '-';
+      .ip {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        width: 100%;
+      }
+    }
   }
 }
 

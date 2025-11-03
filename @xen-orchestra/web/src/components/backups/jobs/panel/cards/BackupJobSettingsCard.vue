@@ -71,13 +71,15 @@
       </UiLabelValue>
       <UiLabelValue v-if="settings.timezone" :label="t('timezone')" :value="settings.timezone" ellipsis />
       <template v-if="settings.reportRecipients && settings.reportRecipients.length > 0">
-        <VtsCardRowKeyValue v-for="(recipient, index) in settings.reportRecipients" :key="index">
-          <template #key>
-            <template v-if="index === 0">{{ t('report-recipients') }}</template>
-          </template>
-          <!-- TODO: use UiCollapsibleList when VtsCardRowKeyValue is updated -->
-          <template #value>{{ recipient }}</template>
-        </VtsCardRowKeyValue>
+        <UiLabelValue :label="t('report-recipients')">
+          <div class="report-recipients">
+            <div v-for="recipient in settings.reportRecipients" :key="recipient" class="recipient">
+              <span v-tooltip class="text-ellipsis">
+                {{ recipient }}
+              </span>
+            </div>
+          </div>
+        </UiLabelValue>
       </template>
       <UiLabelValue v-if="formattedTimeout !== undefined" :label="t('timeout')" ellipsis>
         <template #value>{{ formattedTimeout }}</template>
@@ -97,7 +99,6 @@
 <script lang="ts" setup>
 import { useXoBackupJobSettingsUtils } from '@/composables/xo-backup-job-settings.composable'
 import type { XoBackupJob } from '@/remote-resources/use-xo-backup-job-collection.ts'
-import VtsCardRowKeyValue from '@core/components/card/VtsCardRowKeyValue.vue'
 import VtsStatus from '@core/components/status/VtsStatus.vue'
 import UiCard from '@core/components/ui/card/UiCard.vue'
 import UiCardTitle from '@core/components/ui/card-title/UiCardTitle.vue'
@@ -128,5 +129,16 @@ const {
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
+
+  .report-recipients {
+    width: 100%;
+
+    .recipient {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      width: 100%;
+    }
+  }
 }
 </style>

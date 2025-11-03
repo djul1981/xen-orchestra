@@ -10,21 +10,19 @@
           <slot name="value">
             <div
               v-if="value && !Array.isArray(value)"
-              v-tooltip="ellipsis"
+              v-tooltip
               :class="ellipsis == true ? 'text-ellipsis' : 'text-wrap'"
-              class="valueText"
             >
               {{ value }}
             </div>
-            <UiTagsList
-              v-else-if="Array.isArray(value) && value.length > 0"
-              v-tooltip="ellipsis"
-              :class="{ 'text-ellipsis': ellipsis }"
-            >
-              <UiTag v-for="tag in value" :key="tag" accent="info" variant="secondary">{{ tag }}</UiTag>
+            <UiTagsList v-else-if="Array.isArray(value) && value.length > 0" :class="{ 'text-ellipsis': ellipsis }">
+              <!-- #TODO fix toolTip -->
+              <UiTag v-for="tag in value" :key="tag" v-tooltip="tag" accent="info" variant="secondary">
+                {{ tag }}
+              </UiTag>
             </UiTagsList>
           </slot>
-          <div v-if="slots.addons" class="addons">
+          <div v-if="slots.addons">
             <slot name="addons" />
           </div>
         </div>
@@ -114,6 +112,10 @@ const slots = defineSlots<{
   }
 
   .ui-label-value-grid-container {
+    .label {
+      color: var(--color-neutral-txt-secondary);
+    }
+
     .value {
       display: flex;
       flex-direction: row;
@@ -124,14 +126,11 @@ const slots = defineSlots<{
         align-items: center;
         overflow: hidden;
         white-space: nowrap;
+        gap: 0.8rem;
 
-        .valueText {
-          width: 100%;
-
-          .text-wrap {
-            text-wrap: wrap;
-            overflow-wrap: anywhere;
-          }
+        .text-wrap {
+          text-wrap: wrap;
+          overflow-wrap: anywhere;
         }
       }
 
