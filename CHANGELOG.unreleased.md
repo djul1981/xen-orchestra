@@ -11,6 +11,7 @@
 
 > Users must be able to say: “Nice enhancement, I'm eager to test it”
 
+- [Usage Report] Add operating system information to reports - displays OS distribution statistics and includes OS details (name, distribution, version) in both HTML reports and CSV exports [#XO-1205](https://project.vates.tech/vates-global/browse/XO-1205/) (PR [#XXXX](https://github.com/vatesfr/xen-orchestra/pull/XXXX))
 - **XO 6:**
 
 ### Bug fixes
@@ -33,4 +34,5 @@
 
 <!--packages-start-->
 
+- xo-server-usage-report minor
 <!--packages-end-->
